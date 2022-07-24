@@ -19,7 +19,7 @@ export class Article {
     @Column({ nullable: true })
     link: string;
 
-    @Factory(faker => faker.image.imageUrl())
+    @Factory(faker => faker.image.city())
     @Column({ nullable: true })
     image: string;
    

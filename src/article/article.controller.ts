@@ -14,15 +14,16 @@ export class ArticleController {
         if (query.q) {
             builder.where("article.title LIKE :s OR article.description LIKE :s", {s: `%${query.q}%`})
         }
+       
+        if (query.category) {
+            builder.where("article.category = :s", {s: `${query.category}`})
+        }
         if (query.country) {
             builder.where("article.country = :s", {s: `${query.country}`})
         }
-        if (query.country) {
-            builder.where("article.category = :s", {s: `${query.category}`})
-        }
 
         const page: number = parseInt(query.page as any) || 1;
-        const perPage = 9;
+        const perPage = parseInt(query.perpage as any) || 10;
         const total = await builder.getCount();
 
         builder.offset((page - 1) * perPage).limit(perPage);
